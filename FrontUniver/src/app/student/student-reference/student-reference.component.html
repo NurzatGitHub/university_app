@@ -1,0 +1,99 @@
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="../assets/images/univer-logo.jpeg" alt="">
+            </div>
+            <span class="logo_name" style="font-size: 17px;">Happy University</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a routerLink="/student">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dahsboard</span>
+                </a></li>
+                <li><a routerLink="/student-profile">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">My Profile</span>
+                </a></li>
+                <!-- <li><a href="#">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Course List</span>
+                </a></li> -->
+                <li><a routerLink="/student-reference">
+                    <i class="uil uil-thumbs-up"></i>
+                    <span class="link-name">Reference</span>
+                </a></li>
+               
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a href="#">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+            
+            <a routerLink="/student-notification" style="margin-left: 210px;" href="">
+                <img src="https://www.svgrepo.com/show/304531/notification-alert.svg" alt="">
+            </a>
+            <a  style="margin-right: 50px;" routerLink="/student-profile">
+                <img src="../assets/images/avatar.svg" alt="">
+            </a>
+        </div>
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">Reference</span>
+                </div>
+                <div class="boxes" style="box-shadow: 0 1px 2px 2px rgba(0,0,0,0.2); padding: 20px 20px 20px 25px;">
+                <!-- <form (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label class="form-label">Teacher email</label>
+                        <input style="height: 40px;" type="email" class="form-control" [(ngModel)]="teacherEmail">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Select Subject</label>
+                        <select style="height: 40px;" class="form-select" [(ngModel)]="selectedCourseId">
+                        <option value="" disabled selected>Select a course</option>
+                        <option *ngFor="let course of courses" [value]="course.id">{{ course.course_name }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Select File</label>
+                        <input style="height: 40px;" type="file" class="form-control" (change)="onFileSelected($event)">
+                        <div *ngIf="fileSelected && !['isImageFile']" class="text-danger">Please select an image file.</div>
+                    </div>
+                    <button style="width: 110px; height: 36px;" type="submit" class="btn btn-primary">Submit</button>
+                    </form> -->
+                    <div>
+                        <h2>Create Reference</h2>
+                        <form (submit)="createNotification()">
+                          <div>
+                            <label for="student">Student email:</label>
+                            <input style="height: 40px;" type="email" class="form-control" id="student" name="student" [(ngModel)]="notificationData.student" required>
+                          </div>
+                          <div>
+                            <label for="text">Text:</label>
+                            <textarea style="height: 40px;" class="form-control"id="text" name="text" [(ngModel)]="notificationData.text" required></textarea>
+                          </div>
+                          <button  style="width: 110px; height: 36px;" type="submit" class="btn btn-primary">Create</button>
+                        </form>
+                      </div>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+</body>

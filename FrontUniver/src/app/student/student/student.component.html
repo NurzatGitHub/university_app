@@ -1,0 +1,107 @@
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="../assets/images/univer-logo.jpeg" alt="">
+            </div>
+            <span class="logo_name" style="font-size: 17px;">Happy University</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a routerLink="/student">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dahsboard</span>
+                </a></li>
+                <li><a routerLink="/student-profile">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">My Profile</span>
+                </a></li>
+                <!-- <li><a href="#">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Course List</span>
+                </a></li> -->
+                <li><a routerLink="/student-reference">
+                    <i class="uil uil-thumbs-up"></i>
+                    <span class="link-name">Reference</span>
+                </a></li>
+               
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a href="#">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+
+            <a routerLink="/student-notification" style="margin-left: 210px;" href="">
+                <img src="https://www.svgrepo.com/show/304531/notification-alert.svg" alt="">
+            </a>
+            <a  style="margin-right: 50px;" routerLink="/student-profile">
+                <img src="../assets/images/avatar.svg" alt="">
+            </a>
+            
+        </div>
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">Dashboard</span>
+                </div>
+                <div class="boxes" *ngIf="courses.length > 0">
+                    <!-- <ul>
+                        <li *ngFor="let course of courses">
+                          {{ course.course_name }}
+                          
+                        </li>
+                      </ul> -->
+                    <div *ngFor="let course of courses" class="box box1">
+                        <i class="uil uil-thumbs-up"></i>
+                        <a [routerLink]="['/student-attendance', course.id]">
+                            <span class="text"> {{course.course_name }}</span>
+                        </a>
+                        <div >
+                            <span  class="number">{{ groups[course.id].group_name }}</span>
+                        </div>
+                        
+                    </div>
+                    
+                   <!-- <div class="box box2">
+                        <i class="uil uil-comments"></i>
+                        <a routerLink="/student-attendance">
+                            <span class="text">Programming</span>
+                        </a>
+                        <span class="number">01-N</span>
+                    </div>
+
+                    <div class="box box2">
+                        <i class="uil uil-comments"></i>
+                        <a routerLink="/student-attendance">
+                            <span class="text">Mathematics</span>
+                        </a>
+                        <span class="number">05-N</span>
+                    </div>
+
+                    <div class="box box2">
+                        <i class="uil uil-comments"></i>
+                        <a routerLink="/student-attendance">
+                            <span class="text">Mathematics</span>
+                        </a>
+                        <span class="number">05-N</span>
+                    </div> -->
+                </div>
+            </div>
+           
+        </div>
+    </section>
+</body>

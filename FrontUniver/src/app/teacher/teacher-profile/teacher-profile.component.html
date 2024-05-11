@@ -1,0 +1,95 @@
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="../assets/images/univer-logo.jpeg" alt="">
+            </div>
+            <span class="logo_name">Happy University</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a routerLink="/teacher">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dahsboard</span>
+                </a></li>
+                <li><a routerLink="/teacher-profile">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">My Profile</span>
+                </a></li>
+                <!-- <li><a href="#">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Course List</span>
+                </a></li> -->
+                <!-- <li><a routerLink="/teacher-reference">
+                    <i class="uil uil-thumbs-up"></i>
+                    <span class="link-name">Reference</span>
+                </a></li> -->
+               
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a routerLink="/">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+            <a routerLink="/teacher-notification" style="margin-left: 210px;" href="">
+                <img src="https://www.svgrepo.com/show/304531/notification-alert.svg" alt="">
+            </a>
+            
+           
+            
+            <a style="margin-right: 50px;" routerLink="/teacher-profile">
+                <img src="../assets/images/avatar.svg" alt="">
+            </a>
+        </div>
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">My Profile</span>
+                </div>
+                <div class="boxes">
+                    
+                    <div class="box box1">
+                       <div style="display: flex;">
+                        <img style="height: 150px; width: 150px;" src="../assets/images/avatar.svg" alt="">
+                        <div style="display: flex; line-height: 30px; margin-top: 15px; margin-left: 10px;">
+                            <div *ngIf="userData">
+                                <p>Name: {{ userData.first_name }}</p>
+                                <p>Surname: {{ userData.last_name }}</p>
+                                <p>Email: {{ userData.username }}</p>
+                                <p *ngIf="userData.is_teacher">Role: Teacher</p>
+                                <p *ngIf="!userData.is_teacher">Role: Student</p>
+                            </div>
+                            <div *ngIf="!userData">
+                                <p>Please log in to view your profile.</p>
+                            </div>
+                        </div>
+                        
+                       </div>
+                       
+                       
+                    </div> 
+                   
+                    
+                   
+
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+    
+</body>

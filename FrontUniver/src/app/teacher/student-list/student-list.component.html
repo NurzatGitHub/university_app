@@ -1,0 +1,168 @@
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="../assets/images/univer-logo.jpeg" alt="">
+            </div>
+            <span class="logo_name" style="font-size: 17px;">Happy University</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a routerLink="/teacher">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dahsboard</span>
+                </a></li>
+                <li><a routerLink="/teacher-profile">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">My Profile</span>
+                </a></li>
+                <!-- <li><a href="#">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Course List</span>
+                </a></li> -->
+                <!-- <li><a routerLink="/teacher-reference">
+                    <i class="uil uil-thumbs-up"></i>
+                    <span class="link-name">Reference</span>
+                </a></li> -->
+               
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a routerLink="/">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <!-- <input type="text" placeholder="Search here..." (keyup)="searchEmployees($event)"> -->
+            </div>
+            <a routerLink="/teacher-notification" style="margin-left: 210px;" href="">
+                <img src="https://www.svgrepo.com/show/304531/notification-alert.svg" alt="">
+            </a>
+            
+            <a style="margin-right: 50px;" routerLink="/teacher-profile">
+                <img src="../assets/images/avatar.svg" alt="">
+            </a>
+        </div>
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">Student List</span>
+                </div>
+
+                <div style=" margin-bottom: 40px;margin-left: 50px;">
+                    <a routerLink="/teacher" style="font-size: 11px; " href="">Dashboard  -> </a>
+                    <a routerLink="/student-list" style="font-size: 11px; margin-left: 15px;" href="">student list</a>
+                </div>
+                
+                <!-- <div style="margin-bottom: 25px;">
+                    <span >
+                        <input style="margin-left: 30px; height: 36px; width: 200px; padding-left: 15px; font-size: 12px;" type="text" placeholder="Enter the attendance code">
+                        <button id="code-submit">submit</button>
+                    </span>
+                </div> -->
+                <div class="boxes">
+                    <table style="padding: 1px 10px 1px 30px;" class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Full Name</th>
+                                <th>Absence</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody *ngFor="let course of courses">
+                                <tr *ngFor="let user of users">
+                                        <td *ngIf="!user.is_teacher && user.first_name">
+                                            <a [routerLink]="['/check-stud-absence', course.id]">{{ 210107046 + user.id }}</a>
+                                        </td>
+                                        <td *ngIf="!user.is_teacher && user.first_name">{{ user.first_name }} {{ user.last_name }}</td>
+                                        <td *ngIf="!user.is_teacher && user.first_name">
+                                            <div class="student-details">
+                                                <div class="QaibBar" style="width:130px; float:left;">
+                                                    <div class="QaibBarPercent" [style.width]="absentPercentage + '%'"></div>
+                                                    <div [style.margin-left.%]="80" style="border:1px solid red; width:0px; height:12px; margin-top:-10px;"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    <ng-container *ngFor="let type of attendanceTypeList">
+                                    <ng-container  *ngIf="!user.is_teacher && user.first_name">
+                                        <td [class]="type.title" *ngIf="+lessonAttendanceList[1].attendance_type === type.id">{{ type.title }}</td>
+                                    </ng-container >
+                                    </ng-container>
+                                    <!-- <td style="color: rgb(0, 162, 255);" *ngIf="!user.is_teacher && user.first_name">present</td> -->
+                                </tr>
+                            
+                            <!-- <tr>
+                                <td><a routerLink="/check-stud-absence">210107045</a></td>
+                                <td>Nauryz Nurmuhammed</td>
+                                <td>
+                                    <div class="student-details">
+                                        <div class="QaibBar" style="width:130px; float:left;">
+                                            <div class="QaibBarPercent" [style.width]="absentPercentage + '%'"></div>
+                                            <div [style.margin-left.%]="80" style="border:1px solid red; width:0px; height:12px; margin-top:-10px;"></div>
+                                        </div>
+                                      </div>
+                                </td>
+                                <td style="color: rgb(210, 47, 47);">absence</td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="/check-stud-absence">210107046</a></td>
+                                <td>Turganbek Bekzat</td>
+                                <td>
+                                    <div class="student-details">
+                                        <div class="QaibBar" style="width:130px; float:left;">
+                                            <div class="QaibBarPercent" [style.width]="absentPercentage + '%'"></div>
+                                            <div [style.margin-left.%]="80" style="border:1px solid red; width:0px; height:12px; margin-top:-10px;"></div>
+                                        </div>
+                                      </div>
+                                </td>
+                                <td style="color: rgb(114, 142, 73);">permitted -> absence</td>
+                            </tr>
+
+                            <tr>
+                                <td><a routerLink="/check-stud-absence">210107046</a></td>
+                                <td>Turganbek Bekzat</td>
+                                <td>
+                                    <div class="student-details">
+                                        <div class="QaibBar" style="width:130px; float:left;">
+                                            <div class="QaibBarPercent" [style.width]="absentPercentage + '%'"></div>
+                                            <div [style.margin-left.%]="80" style="border:1px solid red; width:0px; height:12px; margin-top:-10px;"></div>
+                                        </div>
+                                      </div>
+                                </td>
+                                <td style="color: rgb(0, 162, 255);">present</td>
+                            </tr>
+
+                            <tr>
+                                <td><a routerLink="/check-stud-absence">210107046</a></td>
+                                <td>Turganbek Bekzat</td>
+                                <td>
+                                    <div class="student-details">
+                                        <div class="QaibBar" style="width:130px; float:left;">
+                                            <div class="QaibBarPercent" [style.width]="absentPercentage + '%'"></div>
+                                            <div [style.margin-left.%]="80" style="border:1px solid red; width:0px; height:12px; margin-top:-10px;"></div>
+                                        </div>
+                                      </div>
+                                </td>
+                                <td style="color: rgb(210, 47, 47);">absence</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+
+                    
+                </div>
+            </div>
+           
+        </div>
+    </section>
+</body>
