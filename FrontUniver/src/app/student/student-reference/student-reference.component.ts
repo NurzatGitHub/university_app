@@ -7,6 +7,9 @@ import { NotificationService } from '../../notification.service';
 // import { ToastrService } from 'ngx-toastr';
 import { Notification } from '../../model/Notification';
 import { LoginService } from '../../login.service';
+import { LessonAttendance } from '../../model/LessonAttendance';
+import { attendanceType } from '../../model/AttendancyType';
+import { AttendanceRecord } from '../../model/AttendanceRecords';
 
 @Component({
   selector: 'app-student-reference',
@@ -16,47 +19,57 @@ import { LoginService } from '../../login.service';
 })
 export class StudentReferenceComponent implements OnInit {
 
-  notificationData: Notification = {
-    student: '', // Пустое значение по умолчанию
-    text: '' // Пустое значение по умолчанию
-  };
-  userData: any;
+  lessonAttendanceList: LessonAttendance[] = [];
+  course!: Course;
+  courses: Course[] = [];
+  attendancyRecords: AttendanceRecord[] = [];
+  attendanceTypeList: attendanceType[] = [];
 
-  constructor(private notificationService: NotificationService, private loginService: LoginService) { }
+  constructor( private lessonAttendanceService: StudentCourseService, private loginService: LoginService) { }
 
   ngOnInit(): void {
-    this.loginService.getUserData().subscribe(
-      (data: any) => {
-        this.userData = data;
-        // Присваиваем значение this.notificationData.student здесь, когда данные доступны
-        this.notificationData.student = this.userData.id;
+    this.getAttendancyType();
+    this.getCourses();
+    this.getAttendancyRecords();
+  }
+
+  getAttendancyType(): void {
+    this.lessonAttendanceService.getAttendancyType()
+      .subscribe(attendanceTypeList => {
+        this.attendanceTypeList = attendanceTypeList;
+       
+      });
+  }
+
+  getCourses(): void {
+    this.lessonAttendanceService.getCourses()
+      .subscribe(courses => {
+        this.courses = courses;
+       
+      });
+  }
+  getAttendancyRecords(): void {
+    this.lessonAttendanceService.getAttendanceRecords()
+      .subscribe(attendancyRecords => {
+        this.attendancyRecords = attendancyRecords;
+       
+      });
+  }
+
+  updateReason(recordId: number, reason: string): void {
+    this.lessonAttendanceService.updateReason(recordId, reason).subscribe(
+      response => {
+        console.log('Reason updated:', response);
+        // Optionally, update the local record to reflect the change
+        const record = this.attendancyRecords.find(r => r.id === recordId);
+        if (record) {
+          record.reason = reason;
+        }
       },
-      (error: any) => {
-        console.error('Error fetching user data:', error);
+      error => {
+        console.error('Error updating reason:', error);
       }
     );
   }
-
-  createNotification(): void {
-    this.notificationService.createNotification(this.notificationData)
-      .subscribe(
-        (response) => {
-          console.log('Success:', response);
-          // Обработка успешного ответа
-        },
-        (error) => {
-          console.error('Error:', error);
-          // Обработка ошибки
-        }
-      );
-  }
-  // getCourses(): void {
-  //   this.lessonAttendanceService.getCourses()
-  //     .subscribe(courses => {
-  //       this.courses = courses;
-       
-  //     });
-  // }
-
 
 }

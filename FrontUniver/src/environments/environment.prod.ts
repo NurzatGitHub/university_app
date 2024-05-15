@@ -1,3 +1,4 @@
 export const environment = {
-    production: true
+    production: true,
+    apiBaseUrl: 'http://16.171.208.141'
 };

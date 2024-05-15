@@ -3,7 +3,8 @@ from .views import CreateCourse, CreateGroup, CreateLesson, GetCourses, GetGroup
     LessonAttendanceList, GetCoursesOfTeacher, GetGroupsOfCourse, GetLessonOfGroup, GetLessonAttendanceInfo, \
     GetAttendanceOfLesson, ChangeAttendanceTypeToAttended, ChangeAttendanceTypeToManual, \
     ChangeAttendanceTypeToPermitted, ChangeAttendanceTypeToAbsent, GetMyLessonsWithAttendanceType, \
-    SendReferenceToLesson, GetMyReferencesToApproveAPIView, ApproveReference, DownloadReferenceFileAPIView,get_course_by_id,AttendanceTypeList,NotificationListView,NotificationCreateView,NotificationDetailView
+    SendReferenceToLesson, GetMyReferencesToApproveAPIView, ApproveReference, DownloadReferenceFileAPIView, get_attendance_records,get_course_by_id,AttendanceTypeList,NotificationListView,NotificationCreateView,NotificationDetailView
+from .views import add_attendance,update_reason,add_stud_note
 
 urlpatterns = [
     path('create/course/', CreateCourse.as_view(), name='create_course'),
@@ -53,6 +54,13 @@ urlpatterns = [
      path('notifications/', NotificationListView.as_view(), name='notification-list'),
     path('notifications/create/', NotificationCreateView.as_view(), name='notification-create'),
     path('notifications/<int:pk>/', NotificationDetailView.as_view(), name='notification-detail'),
+
+     path('add-attendance/', add_attendance, name='add-attendance'),
+     path('add_stud_note/', add_stud_note),
+      path('attendance-records/', get_attendance_records),
+     path('update-reason/', update_reason),
+     path('update-reason/<int:record_id>/',update_reason, name='update_reason'),
+     # path('update-reason/<int:pk>/', update_reason, name='update-reason'),
 
 
 ]

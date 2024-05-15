@@ -1,3 +1,4 @@
+import json
 from urllib.parse import quote
 
 from django.http import HttpResponse, FileResponse
@@ -464,3 +465,92 @@ class NotificationCreateView(generics.CreateAPIView):
 class NotificationDetailView(generics.RetrieveAPIView):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
+
+
+from .models import AttendanceRecord
+from .serializers import AttendanceRecordSerializer
+
+# @api_view(['POST'])
+# def add_attendance(request):
+#     attendance_id = request.data.get('attendance_id')
+#     course_id = request.data.get('course_id')
+    
+#     try:
+#         attendance = AttendanceRecord.objects.get(id=attendance_id)
+#         course = Course.objects.get(id=course_id)
+        
+#         # Создаем новую запись в таблице AttendanceRecord
+#         attendance_record = AttendanceRecord(attendance=attendance, course=course)
+#         attendance_record.save()
+        
+#         return Response({'status': 'attendance added'}, status=status.HTTP_201_CREATED)
+#     except AttendanceRecord.DoesNotExist:
+#         return Response({'error': 'Attendance not found'}, status=status.HTTP_404_NOT_FOUND)
+#     except Course.DoesNotExist:
+#         return Response({'error': 'Course not found'}, status=status.HTTP_404_NOT_FOUND)
+#     except Exception as e:
+#         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+@csrf_exempt
+def add_attendance(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            attendance_id = data.get('attendance')
+            course_id = data.get('course')
+            course_name = data.get('course_name', '')
+            username = data.get('username', '')
+            # created_at = data
+
+            attendance = LessonAttendance.objects.get(id=attendance_id)
+            course = Course.objects.get(id=course_id)
+
+            attendance_record = AttendanceRecord.objects.create(
+                attendance=attendance, 
+                course=course,
+                course_name=course_name,
+                username=username
+            )
+            return JsonResponse({'id': attendance_record.id, 'attendance': attendance.id, 'course': course.id, 'course_name': course_name, 'username': username})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+@csrf_exempt
+def add_stud_note(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email', '')
+            course_name = data.get('course_name', '')
+            accept = data.get('accept', '')
+            # Save the note to the database or perform necessary actions
+            return JsonResponse({'status': 'success', 'message': f'Note added: {accept}'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+@api_view(['GET'])
+def get_attendance_records(request):
+    if request.method == 'GET':
+        records = AttendanceRecord.objects.all()
+        serializer = AttendanceRecordSerializer(records, many=True)
+        return Response(serializer.data)
+    
+def update_reason(request, record_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            reason = data.get('reason', '')
+
+            attendance_record = AttendanceRecord.objects.get(id=record_id)
+            attendance_record.reason = reason
+            attendance_record.save()
+
+            return JsonResponse({'id': attendance_record.id, 'reason': attendance_record.reason, 'updated_at': attendance_record.updated_at})
+        except AttendanceRecord.DoesNotExist:
+            return JsonResponse({'error': 'AttendanceRecord not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)

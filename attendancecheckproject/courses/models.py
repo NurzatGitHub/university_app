@@ -50,3 +50,19 @@ class Notification(models.Model):
     # teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+
+class AttendanceRecord(models.Model):
+    attendance = models.ForeignKey(LessonAttendance, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)  # Add this line
+    reason = models.CharField(max_length=255, null=True, blank=True)
+    course_name = models.CharField(max_length=255, null=True, blank=True)
+    username = models.CharField(max_length=255, null=True, blank=True)
+
+class StudNotifications(models.Model):
+    email = models.EmailField(null= True, blank=True)
+    # data = models.DateTimeField(auto_now=True)
+    course_name = models.CharField(max_length=255,null=True, blank=True)
+    accept = models.CharField(max_length=255,null=True,blank=True)

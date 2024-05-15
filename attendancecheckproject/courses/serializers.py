@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Course, Group, Lesson, Reference
-from .models import LessonAttendance,AttendanceType,Notification
+from .models import LessonAttendance,AttendanceType,Notification,AttendanceRecord
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -50,4 +50,10 @@ class ReferenceSerializer(serializers.ModelSerializer):
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
+        fields = '__all__'
+
+
+class AttendanceRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AttendanceRecord
         fields = '__all__'

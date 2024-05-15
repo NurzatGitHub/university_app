@@ -790,3 +790,12 @@ nav.close ~ .dashboard .top{
 body {
   background-color:#ffffff;
 }
+
+.green {
+    margin: 10px;
+    background-color: #90EE90;
+}
+.red {
+    margin: 10px;
+    background-color: #FF6347;
+}
